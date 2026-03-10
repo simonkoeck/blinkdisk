@@ -61,6 +61,31 @@ export function listenProtocol() {
 
       if (!vault) return new Response("Vault not found", { status: 404 });
 
+      const allowedPaths = [
+        "/api/v1/repo/status",
+        "/api/v1/repo/connect",
+        "/api/v1/repo/create",
+        "/api/v1/repo/disconnect",
+        "/api/v1/repo/flush",
+        "/api/v1/repo/sync",
+        "/api/v1/snapshots",
+        "/api/v1/policy",
+        "/api/v1/tasks",
+        "/api/v1/sources",
+        "/api/v1/restore",
+        "/api/v1/objects",
+        "/api/v1/estimate",
+        "/api/v1/mounts",
+      ];
+
+      const isAllowed = allowedPaths.some(
+        (allowed) =>
+          pathname === allowed || pathname.startsWith(allowed + "/"),
+      );
+
+      if (!isAllowed)
+        return new Response("Path not allowed", { status: 403 });
+
       try {
         const data = req.body ? await new Response(req.body).text() : undefined;
 
