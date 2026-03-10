@@ -6,7 +6,7 @@ import { verifyServiceToken } from "@utils/token";
 export default Sentry.withSentry(
   (env: CloudflareBindings) => ({
     dsn: env.SENTRY_CLOUD_DSN,
-    sendDefaultPii: true,
+    sendDefaultPii: false,
     enabled: env.NODE_ENV !== "development",
   }),
   {

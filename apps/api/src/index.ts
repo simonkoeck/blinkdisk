@@ -72,7 +72,7 @@ app.use(
 export default Sentry.withSentry(
   (env: CloudflareBindings) => ({
     dsn: env.SENTRY_API_DSN,
-    sendDefaultPii: true,
+    sendDefaultPii: false,
     enabled: env.NODE_ENV !== "development",
   }),
   app,

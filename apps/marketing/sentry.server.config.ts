@@ -3,6 +3,6 @@ import { SENTRY_MARKETING_DSN } from "astro:env/client";
 
 Sentry.init({
   dsn: SENTRY_MARKETING_DSN,
-  sendDefaultPii: true,
+  sendDefaultPii: false,
   enabled: !import.meta.env.DEV,
 });
