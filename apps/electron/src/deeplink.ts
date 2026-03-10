@@ -12,13 +12,16 @@ if (process.defaultApp) {
   app.setAsDefaultProtocolClient("blinkdisk");
 }
 
+const ALLOWED_DEEPLINK_EVENTS = ["checkout_completed"];
+
 export function onDeeplinkOpen(rawUrl: string) {
   const url = new URL(rawUrl);
   if (url.protocol !== "blinkdisk:") return;
 
-  sendWindow("deeplink.open", {
-    event: url.host,
-  });
+  const event = url.host;
+  if (!ALLOWED_DEEPLINK_EVENTS.includes(event)) return;
+
+  sendWindow("deeplink.open", { event });
 }
 
 app.on("open-url", (_, url) => {
